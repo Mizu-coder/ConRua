@@ -56,7 +56,20 @@ public class MenuScreen implements Screen {
                 game.setScreen(new  GameScreen(game));
             }
         });
-
+        exit = new Texture("button.png");
+        TextButton.TextButtonStyle style1 = new TextButton.TextButtonStyle();
+        style.font = game.font;
+        style.fontColor = Color.WHITE;
+        TextButton exit1 = new TextButton("E",style);
+        exit1.setSize(0.9f,0.9f);
+        exit1.setPosition(533 ,221);
+        game.stage.addActor(exit1);
+        Gdx.input.setInputProcessor(game.stage);
+        exit1.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.app.exit();
+            }
+        });
 
 
 
@@ -72,6 +85,7 @@ public class MenuScreen implements Screen {
         game.batch.begin();
         game.batch.draw(backgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         game.batch.draw(title, Gdx.graphics.getWidth() / 8, Gdx.graphics.getHeight() / 2, title.getWidth(), title.getHeight());
+        game.batch.draw(exit, 499,176);
         game.batch.draw(button, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, button.getWidth() / 2, button.getHeight() / 2);
         game.batch.end();
         game.stage.act(Gdx.graphics.getDeltaTime());
