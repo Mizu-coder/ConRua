@@ -24,12 +24,14 @@ public class MenuScreen implements Screen {
     OrthographicCamera camera;
     Stage stage;
     GlyphLayout layout;
+    Texture exit;
     public MenuScreen(Master game){
         this.game = game;
     }
 
     @Override
     public void show() {
+        stage = new Stage();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         game.batch = new SpriteBatch();
@@ -52,6 +54,20 @@ public class MenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y){
                 System.out.println("start Clicked");
                 game.setScreen(new  GameScreen(game));
+            }
+        });
+        exit = new Texture("button.png");
+        TextButton.TextButtonStyle style1 = new TextButton.TextButtonStyle();
+        style1.font = game.font;
+        style1.fontColor = Color.YELLOW;
+        TextButton exit1 = new TextButton("E",style);
+        exit1.setSize(0.9f,0.9f);
+        exit1.setPosition(518 ,215);
+        game.stage.addActor(exit1);
+        Gdx.input.setInputProcessor(game.stage);
+        exit1.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.app.exit();
             }
         });
 
