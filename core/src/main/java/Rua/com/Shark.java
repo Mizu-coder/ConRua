@@ -12,12 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class Shark extends Actor {
     TextureRegion textureRegion;
     Polygon polygon;
+    float x = 1;
     public Shark( float x, float y, Stage s) {
         textureRegion = new TextureRegion(new Texture("sharky.png"));
         setPosition(x, y);
         setOrigin(getWidth()/2,getHeight()/2);
         setSize(textureRegion.getRegionWidth(),textureRegion.getRegionHeight());
         s.addActor(this);
+        setRotation(0);
         float[] dagiac = {
             34,60,
             37,42,
@@ -42,17 +44,24 @@ public class Shark extends Actor {
     public void act(float delta) {
         super.act(delta);
         float speed = 2*3.14f* 60/360;
-        float x = speed* MathUtils.cosDeg(getRotation());
         float y = speed* MathUtils.sinDeg(getRotation());
+        if(getX() > 800){
+            x = -1;
+            setScaleX(-1);
+        }
+        if(getX() < 0){
+            x= 1;
+            setScaleX(1);
+
+        }
         moveBy(x,y);
-        rotateBy(-1);
         polygon.setPosition(getX(),getY());
         polygon.setRotation(getRotation());
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(textureRegion,getX(),getY(),getOriginX(), getOriginY(),getWidth(),getHeight(),1 , 1,getRotation());
+        batch.draw(textureRegion,getX(),getY(),getOriginX(), getOriginY(),getWidth(),getHeight(),getScaleX() , getScaleY(),getRotation());
     }
     public Rectangle getBounds(){
         return new Rectangle(getX(), getY(),getWidth(),getHeight());
