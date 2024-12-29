@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -65,6 +66,7 @@ public class GameScreen implements Screen {
 
     Texture s;
     Shark shark;
+
     Texture exit;
 
     public GameScreen(Master game){
@@ -85,23 +87,12 @@ public class GameScreen implements Screen {
 
         win = new Texture("you-win.png");
 
+        exit = new Texture("dialog.png");
+
         song = Gdx.audio.newSound(Gdx.files.internal("Ocean_Waves.ogg"));
         nhac = Gdx.audio.newMusic(Gdx.files.internal("Master_of_the_Feast.ogg"));
 
-        exit = new Texture("button.png");
-        TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.font = game.font;
-        style.fontColor = Color.WHITE;
-        TextButton startButton = new TextButton("E",style);
-        startButton.setSize(0.9f,0.9f);
-        startButton.setPosition(95 ,409);
-        game.stage.addActor(startButton);
-        Gdx.input.setInputProcessor(game.stage);
-        startButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
-                Gdx.app.exit();
-            }
-        });
+
 
         r = new Texture("rock.png");
         rock = new Rock(r, MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
@@ -129,6 +120,20 @@ public class GameScreen implements Screen {
 
         s = new Texture("sharky.png");
         shark = new Shark(488,320,game.stage);
+
+        TextButton.TextButtonStyle style1 = new TextButton.TextButtonStyle();
+        style1.font = game.font;
+        style1.fontColor = Color.WHITE;
+        TextButton exit1 = new TextButton("Exit",style1);
+        exit1.setSize(0.9f,0.9f);
+        exit1.setPosition(785 ,451);
+        game.stage.addActor(exit1);
+        Gdx.input.setInputProcessor(game.stage);
+        exit1.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
+                Gdx.app.exit();
+            }
+        });
     }
 
     @Override
@@ -138,9 +143,8 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.draw(background, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.batch.draw(exit,59 ,361);
         game.font.draw(game.batch, layout,156,462);
-
+        game.batch.draw(exit, 688,423,exit.getWidth()/4, exit.getHeight()/4);
         game.batch.end();
         game.stage.act(Gdx.graphics.getDeltaTime());
         game.stage.draw();
@@ -243,17 +247,17 @@ public class GameScreen implements Screen {
             game.batch.draw(win,Gdx.graphics.getWidth()/8,Gdx.graphics.getHeight()/2,win.getWidth(), win.getHeight());
             game.batch.end();
         }
-//        if(turtle.getBounds().overlaps(shark.getBounds())) {
-//            System.out.println(1);
-//            if (Intersector.overlapConvexPolygons(turtle.getPolygon(), shark.getPolygon())) {
-//                System.out.println(2);
-//                ScreenUtils.clear(Color.BLUE);
-//                game.batch.begin();
-//                game.batch.draw(background,0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//                game.batch.draw(gameover,Gdx.graphics.getWidth()/8,Gdx.graphics.getHeight()/2,gameover.getWidth(), gameover.getHeight());
-//                game.batch.end();
-//            }
-//        }
+        if(turtle.getBounds().overlaps(shark.getBounds())) {
+            System.out.println(1);
+            if (Intersector.overlapConvexPolygons(turtle.getPolygon(), shark.getPolygon())) {
+                System.out.println(2);
+                ScreenUtils.clear(Color.BLUE);
+                game.batch.begin();
+                game.batch.draw(background,0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                game.batch.draw(gameover,Gdx.graphics.getWidth()/8,Gdx.graphics.getHeight()/2,gameover.getWidth(), gameover.getHeight());
+                game.batch.end();
+            }
+        }
 //        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 //        shapeRenderer.setColor(Color.BLUE);
 //        shapeRenderer.polygon(shark.polygon.getTransformedVertices());

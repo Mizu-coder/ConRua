@@ -41,7 +41,7 @@ public class Shark extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        float speed = 2*3.14f* 100/360;
+        float speed = 2*3.14f* 60/360;
         float x = speed* MathUtils.cosDeg(getRotation());
         float y = speed* MathUtils.sinDeg(getRotation());
         moveBy(x,y);
