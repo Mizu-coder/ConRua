@@ -67,7 +67,7 @@ public class GameScreen implements Screen {
     Texture s;
     Shark shark;
 
-    Texture exit;
+    Texture reset;
 
     Win win1;
     Texture w1 = new Texture("sparkle.png");
@@ -91,7 +91,7 @@ public class GameScreen implements Screen {
 
         win = new Texture("you-win.png");
 
-        exit = new Texture("dialog.png");
+        reset = new Texture("undo.png");
 
         song = Gdx.audio.newSound(Gdx.files.internal("Ocean_Waves.ogg"));
         nhac = Gdx.audio.newMusic(Gdx.files.internal("Master_of_the_Feast.ogg"));
@@ -148,7 +148,6 @@ public class GameScreen implements Screen {
         game.batch.begin();
         game.batch.draw(background, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         game.font.draw(game.batch, layout,156,462);
-        game.batch.draw(exit, 688,423,exit.getWidth()/4, exit.getHeight()/4);
         game.batch.end();
         game.stage.act(Gdx.graphics.getDeltaTime());
         game.stage.draw();
