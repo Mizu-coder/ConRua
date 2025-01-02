@@ -12,12 +12,10 @@ public class Win extends Actor {
     Animation<TextureRegion> animation;
     float time;
     public Win(Texture texture,float x, float y, Stage s) {
-        textureRegion = new TextureRegion(new Texture("sparkle.png"));
         setPosition(x, y);
         s.addActor(this);
         int cot = 8;
         int hang = 8;
-        setSize(textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
         setSize(texture.getWidth() / cot, texture.getHeight() / hang);
         float speed = 0.2f;
         TextureRegion[][] tam = TextureRegion.split(texture, texture.getWidth() / cot, texture.getHeight() / hang);// đưa tất cả vào danh một danh sách ảnh, vì 6 cột 1 hàng nên sẽ có 6 phần tử: 6 x 1

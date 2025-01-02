@@ -142,8 +142,7 @@ public class GameScreen implements Screen {
         game.batch.draw(background, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         game.font.draw(game.batch, layout,156,462);
         game.batch.end();
-        game.stage.act(Gdx.graphics.getDeltaTime());
-        game.stage.draw();
+
         speed *= 0.9;
         turtle.moveBy(speed * MathUtils.cosDeg(turtle.getRotation()), speed * MathUtils.sinDeg(turtle.getRotation()));
         if(Gdx.input.isTouched()){
@@ -192,110 +191,110 @@ public class GameScreen implements Screen {
         }
         if(turtle.getBounds().overlaps(starFish.getBounds())){
             if(Intersector.overlapConvexPolygons(turtle.getPolygon(), starFish.getPolygon())){
-                if (sosao >= 1){
+                if (sosao > 1){
                     xoayNuoc = new XoayNuoc(w, starFish.getX(), starFish.getY(), game.stage);
+                    starFish.setPosition(1000, 1000);
+                    song.play();
+                    sosao -= 1;
+                    layout.setText(game.font, "So sao con lai " + sosao + " ");
+                }else if(sosao <= 1){
+                    System.out.println(5);
+                    win1 = new Win(w1,starFish.getX(), starFish.getY(), game.stage);
                     starFish.setPosition(1000, 1000);
                     song.play();
                     sosao -= 1;
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao < 0){
-                System.out.println(5);
-                win1 = new Win(w1,starFish.getX(), starFish.getY(), game.stage);
-                starFish.setPosition(1000, 1000);
-                song.play();
-                sosao -= 1;
-                layout.setText(game.font, "So sao con lai " + sosao + " ");
-            }
+
         }
         if(turtle.getBounds().overlaps(starFish1.getBounds())){
             if(Intersector.overlapConvexPolygons(turtle.getPolygon(), starFish1.getPolygon())){
-                if (sosao >= 1){
+                if (sosao > 1){
                     xoayNuoc = new XoayNuoc(w, starFish1.getX(), starFish1.getY(), game.stage);
+                    starFish1.setPosition(1000, 1000);
+                    song.play();
+                    sosao -= 1;
+                    layout.setText(game.font, "So sao con lai " + sosao + " ");
+                } else if(sosao <= 1){
+                    System.out.println(4);
+                    win1 = new Win(w1,starFish1.getX(), starFish1.getY(), game.stage);
                     starFish1.setPosition(1000, 1000);
                     song.play();
                     sosao -= 1;
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao < 0){
-                System.out.println(4);
-                win1 = new Win(w1,starFish1.getX(), starFish1.getY(), game.stage);
-                starFish1.setPosition(1000, 1000);
-                song.play();
-                sosao -= 1;
-                layout.setText(game.font, "So sao con lai " + sosao + " ");
-            }
+
         }
         if(turtle.getBounds().overlaps(starFish2.getBounds())){
             if(Intersector.overlapConvexPolygons(turtle.getPolygon(), starFish2.getPolygon())){
-                if (sosao >= 1){
+                if (sosao > 1){
                     xoayNuoc = new XoayNuoc(w, starFish2.getX(), starFish2.getY(), game.stage);
+                    starFish2.setPosition(1000, 1000);
+                    song.play();
+                    sosao -= 1;
+                    layout.setText(game.font, "So sao con lai " + sosao + " ");
+                } else if(sosao <= 1){
+                    System.out.println(3);
+                    win1 = new Win(w1,starFish2.getX(), starFish2.getY(), game.stage);
                     starFish2.setPosition(1000, 1000);
                     song.play();
                     sosao -= 1;
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao < 0){
-                System.out.println(3);
-                win1 = new Win(w1,starFish2.getX(), starFish2.getY(), game.stage);
-                starFish2.setPosition(1000, 1000);
-                song.play();
-                sosao -= 1;
-                layout.setText(game.font, "So sao con lai " + sosao + " ");
-            }
+
         }
+
         if(turtle.getBounds().overlaps(starFish3.getBounds())){
             if(Intersector.overlapConvexPolygons(turtle.getPolygon(), starFish3.getPolygon())){
-                if (sosao >= 1){
+                if (sosao > 1){
                     xoayNuoc = new XoayNuoc(w, starFish3.getX(), starFish3.getY(), game.stage);
+                    starFish3.setPosition(1000, 1000);
+                    song.play();
+                    sosao -= 1;
+                    layout.setText(game.font, "So sao con lai " + sosao + " ");
+                } else  if(sosao <= 1){
+                    System.out.println(2);
+                    win1 = new Win(w1,starFish3.getX(), starFish3.getY(), game.stage);
                     starFish3.setPosition(1000, 1000);
                     song.play();
                     sosao -= 1;
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao < 0){
-                System.out.println(2);
-                win1 = new Win(w1,starFish3.getX(), starFish3.getY(), game.stage);
-                starFish3.setPosition(1000, 1000);
-                song.play();
-                sosao -= 1;
-                layout.setText(game.font, "So sao con lai " + sosao + " ");
-            }
+
         }
         if(turtle.getBounds().overlaps(starFish4.getBounds())){
 
             if(Intersector.overlapConvexPolygons(turtle.getPolygon(), starFish4.getPolygon())) {
-                if (sosao >= 1){
+                if (sosao > 1){
                     xoayNuoc = new XoayNuoc(w, starFish4.getX(), starFish4.getY(), game.stage);
                     starFish4.setPosition(1000, 1000);
                     song.play();
                     sosao -= 1;
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
+                } else if(sosao <= 1){
+                    System.out.println(1);
+                    win1 = new Win(w1,starFish4.getX(), starFish4.getY(), game.stage);
+                    starFish4.setPosition(1000, 1000);
+                    song.play();
+                    sosao -= 1;
+                    layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
-            }
-            if(sosao == 0){
-                System.out.println(1);
-                win1 = new Win(w1,starFish4.getX(), starFish4.getY(), game.stage);
-                starFish4.setPosition(1000, 1000);
-                song.play();
-                sosao -= 1;
-                layout.setText(game.font, "So sao con lai " + sosao + " ");
-            }
-        }
-        if(sosao <= 0){
 
-            game.batch.begin();
-            game.batch.draw(win,Gdx.graphics.getWidth()/8,Gdx.graphics.getHeight()/2,win.getWidth(), win.getHeight());
-            game.batch.end();
+            }
+
         }
+//        if(sosao <= 0){
+//
+//            game.batch.begin();
+//            game.batch.draw(win,Gdx.graphics.getWidth()/8,Gdx.graphics.getHeight()/2,win.getWidth(), win.getHeight());
+//            game.batch.end();
+//        }
         if(turtle.getBounds().overlaps(shark.getBounds())) {
-            System.out.println(1);
             if (Intersector.overlapConvexPolygons(turtle.getPolygon(), shark.getPolygon())) {
-                System.out.println(2);
                 ScreenUtils.clear(Color.BLUE);
                 game.batch.begin();
                 game.batch.draw(background,0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -324,6 +323,8 @@ public class GameScreen implements Screen {
 //        shapeRenderer.setColor(Color.BLUE);
 //        shapeRenderer.polygon(shark.polygon.getTransformedVertices());
 //        shapeRenderer.end();
+        game.stage.act(Gdx.graphics.getDeltaTime());
+        game.stage.draw();
     }
 
     @Override
