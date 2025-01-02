@@ -72,6 +72,10 @@ public class GameScreen implements Screen {
     Win win1;
     Texture w1 = new Texture("sparkle.png");
 
+
+    Reset reset1;
+    boolean isReset = false;
+
     public GameScreen(Master game){
         this.game = game;
     }
@@ -83,7 +87,7 @@ public class GameScreen implements Screen {
         game.batch = new SpriteBatch();
         game.stage = new Stage();
         layout = new GlyphLayout();
-        sosao = 1;
+        sosao = 5;
         layout.setText(game.font, "So sao con lai " + sosao + " ");
 
 
@@ -123,21 +127,10 @@ public class GameScreen implements Screen {
 //        nhac.play();
 
         s = new Texture("sharky.png");
-        shark = new Shark(488,320,game.stage);
+        shark = new Shark(488,336,game.stage);
 
-        TextButton.TextButtonStyle style1 = new TextButton.TextButtonStyle();
-        style1.font = game.font;
-        style1.fontColor = Color.WHITE;
-        TextButton exit1 = new TextButton("Exit",style1);
-        exit1.setSize(0.9f,0.9f);
-        exit1.setPosition(785 ,451);
-        game.stage.addActor(exit1);
+        reset1 = new Reset(reset,769 ,424,game.stage);
         Gdx.input.setInputProcessor(game.stage);
-        exit1.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
-                Gdx.app.exit();
-            }
-        });
     }
 
     @Override
@@ -207,7 +200,7 @@ public class GameScreen implements Screen {
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao <= 0){
+            if(sosao < 0){
                 System.out.println(5);
                 win1 = new Win(w1,starFish.getX(), starFish.getY(), game.stage);
                 starFish.setPosition(1000, 1000);
@@ -226,7 +219,7 @@ public class GameScreen implements Screen {
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao <= 0){
+            if(sosao < 0){
                 System.out.println(4);
                 win1 = new Win(w1,starFish1.getX(), starFish1.getY(), game.stage);
                 starFish1.setPosition(1000, 1000);
@@ -245,7 +238,7 @@ public class GameScreen implements Screen {
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao <= 0){
+            if(sosao < 0){
                 System.out.println(3);
                 win1 = new Win(w1,starFish2.getX(), starFish2.getY(), game.stage);
                 starFish2.setPosition(1000, 1000);
@@ -264,7 +257,7 @@ public class GameScreen implements Screen {
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao <= 0){
+            if(sosao < 0){
                 System.out.println(2);
                 win1 = new Win(w1,starFish3.getX(), starFish3.getY(), game.stage);
                 starFish3.setPosition(1000, 1000);
@@ -284,7 +277,7 @@ public class GameScreen implements Screen {
                     layout.setText(game.font, "So sao con lai " + sosao + " ");
                 }
             }
-            if(sosao >= 0){
+            if(sosao == 0){
                 System.out.println(1);
                 win1 = new Win(w1,starFish4.getX(), starFish4.getY(), game.stage);
                 starFish4.setPosition(1000, 1000);
@@ -310,12 +303,27 @@ public class GameScreen implements Screen {
                 game.batch.end();
             }
         }
-        //if (shark.getX() >)
+        reset1.addListener(new ClickListener(){
+
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println(10);
+                if(!isReset) {
+                    game.setScreen(new GameScreen(game));
+                    isReset = true;
+                }
+
+            }
+        });
+
+        if(turtle.getBounds().overlaps(shark.getBounds())) {
+            if (Intersector.overlapConvexPolygons(turtle.getPolygon(), shark.getPolygon())) {
+                game.setScreen(new ContinueScreen(game));
+            }
+        }
 //        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 //        shapeRenderer.setColor(Color.BLUE);
 //        shapeRenderer.polygon(shark.polygon.getTransformedVertices());
 //        shapeRenderer.end();
-
     }
 
     @Override

@@ -72,9 +72,6 @@ public class MenuScreen implements Screen {
         });
 
 
-
-
-
     }
 
     @Override

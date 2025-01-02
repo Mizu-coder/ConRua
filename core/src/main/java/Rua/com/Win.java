@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class Win extends Actor {
     TextureRegion textureRegion;
     Animation<TextureRegion> animation;
-    int time;
+    float time;
     public Win(Texture texture,float x, float y, Stage s) {
         textureRegion = new TextureRegion(new Texture("sparkle.png"));
         setPosition(x, y);
