@@ -17,6 +17,15 @@ public class Master extends Game {
     SpriteBatch batch;
     BitmapFont font;
     Stage stage;
+    Coc coc;
+    Coc coc1;
+    Texture go;
+
+    Rock rock;
+    Texture r;
+    Rock rock1;
+    Rock rock2;
+    Rock rock3;
 
     @Override
     public void create() {

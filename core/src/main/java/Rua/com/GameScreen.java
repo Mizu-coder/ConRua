@@ -31,11 +31,7 @@ public class GameScreen implements Screen {
     Turtle turtle;
     Texture t = new Texture("spritesheet.png");
 
-    Rock rock;
-    Texture r;
-    Rock rock1;
-    Rock rock2;
-    Rock rock3;
+
 
     StarFish starFish;
     StarFish starFish1;
@@ -47,14 +43,12 @@ public class GameScreen implements Screen {
     ShapeRenderer shapeRenderer;
     Polygon polygon;
     Texture gameover;
-    float speed = 0;
+
     int sosao;
 
     GlyphLayout layout;
 
-    Coc coc;
-    Coc coc1;
-    Texture go;
+
 
     Texture w;
     XoayNuoc xoayNuoc;
@@ -102,15 +96,15 @@ public class GameScreen implements Screen {
 
 
 
-        r = new Texture("rock.png");
-        rock = new Rock(r, MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
-        rock1 = new Rock(r,MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
-        rock2 = new Rock(r, MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
-        rock3 = new Rock(r, MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
+        game.r = new Texture("rock.png");
+        game.rock = new Rock(game.r, MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
+        game.rock1 = new Rock(game.r,MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
+        game.rock2 = new Rock(game.r, MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
+        game.rock3 = new Rock(game.r, MathUtils.random(100,600) ,MathUtils.random(100,400),game.stage);
 
-        go = new Texture("sign.png");
-        coc = new Coc(go,MathUtils.random(10,600) ,MathUtils.random(10,400), game.stage);
-        coc1 = new Coc(go,MathUtils.random(10,600) ,MathUtils.random(10,400), game.stage);
+        game.go = new Texture("sign.png");
+        game.coc = new Coc(game.go,MathUtils.random(10,600) ,MathUtils.random(10,400), game.stage);
+        game.coc1 = new Coc(game.go,MathUtils.random(10,600) ,MathUtils.random(10,400), game.stage);
 
         star = new Texture("starfish.png");
         starFish = new StarFish(star, MathUtils.random(10,600) ,MathUtils.random(10,400),game.stage);
@@ -121,7 +115,7 @@ public class GameScreen implements Screen {
 
         background = new Texture("water-border.jpg");
         gameover = new Texture("game-over.png");
-        turtle = new Turtle(t,0,0,game.stage);
+        turtle = new Turtle(t,0,0,game.stage,game);
         shapeRenderer = new ShapeRenderer();
         polygon = new Polygon();
 //        nhac.play();
@@ -143,51 +137,8 @@ public class GameScreen implements Screen {
         game.font.draw(game.batch, layout,156,462);
         game.batch.end();
 
-        speed *= 0.9;
-        turtle.moveBy(speed * MathUtils.cosDeg(turtle.getRotation()), speed * MathUtils.sinDeg(turtle.getRotation()));
         if(Gdx.input.isTouched()){
             System.out.println("x = " + Gdx.input.getX() + " y = " + (Gdx.graphics.getHeight() - Gdx.input.getY()));
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            turtle.rotateBy(2);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            turtle.rotateBy(-2);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            speed += 0.3;
-        }
-        if(turtle.getBounds().overlaps(rock.getBounds())){
-            if(Intersector.overlapConvexPolygons(turtle.getPolygon(), rock.getPolygon())){
-                speed *= -1f;
-            }
-        }
-        if(turtle.getBounds().overlaps(rock1.getBounds())){
-            if(Intersector.overlapConvexPolygons(turtle.getPolygon(), rock1.getPolygon())){
-                speed *= -1f;
-            }
-        }
-        if(turtle.getBounds().overlaps(coc1.getBounds())){
-            if(Intersector.overlapConvexPolygons(turtle.getPolygon(), coc1.getPolygon())){
-                speed *= -1f;
-            }
-        }
-        if(turtle.getBounds().overlaps(coc.getBounds())){
-            if(Intersector.overlapConvexPolygons(turtle.getPolygon(), coc.getPolygon())){
-                speed *= -1f;
-            }
-        }
-        if(turtle.getBounds().overlaps(rock2.getBounds())){
-            if(Intersector.overlapConvexPolygons(turtle.getPolygon(), rock2.getPolygon())){
-                speed *= -1f;
-            }
-        }
-        if(turtle.getBounds().overlaps(rock3.getBounds())){
-            if(Intersector.overlapConvexPolygons(turtle.getPolygon(), rock3.getPolygon())){
-                speed *= -1f;
-            }
         }
         if(turtle.getBounds().overlaps(starFish.getBounds())){
             if(Intersector.overlapConvexPolygons(turtle.getPolygon(), starFish.getPolygon())){
@@ -287,12 +238,12 @@ public class GameScreen implements Screen {
             }
 
         }
-//        if(sosao <= 0){
-//
-//            game.batch.begin();
-//            game.batch.draw(win,Gdx.graphics.getWidth()/8,Gdx.graphics.getHeight()/2,win.getWidth(), win.getHeight());
-//            game.batch.end();
-//        }
+        if(sosao <= 0){
+            ScreenUtils.clear(Color.BLUE);
+            game.batch.begin();
+            game.batch.draw(win,Gdx.graphics.getWidth()/8,Gdx.graphics.getHeight()/2,win.getWidth(), win.getHeight());
+            game.batch.end();
+        }
         if(turtle.getBounds().overlaps(shark.getBounds())) {
             if (Intersector.overlapConvexPolygons(turtle.getPolygon(), shark.getPolygon())) {
                 ScreenUtils.clear(Color.BLUE);

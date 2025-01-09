@@ -1,9 +1,13 @@
 package Rua.com;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,12 +18,13 @@ public class Turtle extends Actor {
     TextureRegion textureRegion;
     float time;
     Polygon polygon;
+    float speed = 0;
+    Master game;
 
-
-    public Turtle(Texture texture,float x, float y, Stage s) {
+    public Turtle(Texture texture,float x, float y, Stage s,Master game) {
+        this.game = game;
         textureRegion = new TextureRegion(new Texture("spritesheet.png"));
         setPosition(x, y);
-
         s.addActor(this);
         int cot = 6;
         int hang = 1;
@@ -64,7 +69,54 @@ public class Turtle extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        time += delta;
+
+        speed *= 0.9;
+        moveBy(speed * MathUtils.cosDeg(getRotation()), speed * MathUtils.sinDeg(getRotation()));
+
+
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            rotateBy(2);
+            time += delta;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            rotateBy(-2);
+            time += delta;
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            speed += 0.3;
+            time += delta;
+        }
+        if(getBounds().overlaps(game.rock.getBounds())){
+            if(Intersector.overlapConvexPolygons(getPolygon(), game.rock.getPolygon())){
+                speed *= -1f;
+            }
+        }
+        if(getBounds().overlaps(game.rock1.getBounds())){
+            if(Intersector.overlapConvexPolygons(getPolygon(), game.rock1.getPolygon())){
+                speed *= -1f;
+            }
+        }
+        if(getBounds().overlaps(game.coc1.getBounds())){
+            if(Intersector.overlapConvexPolygons(getPolygon(), game.coc1.getPolygon())){
+                speed *= -1f;
+            }
+        }
+        if(getBounds().overlaps(game.coc.getBounds())){
+            if(Intersector.overlapConvexPolygons(getPolygon(), game.coc.getPolygon())){
+                speed *= -1f;
+            }
+        }
+        if(getBounds().overlaps(game.rock2.getBounds())){
+            if(Intersector.overlapConvexPolygons(getPolygon(), game.rock2.getPolygon())){
+                speed *= -1f;
+            }
+        }
+        if(getBounds().overlaps(game.rock3.getBounds())){
+            if(Intersector.overlapConvexPolygons(getPolygon(), game.rock3.getPolygon())){
+                speed *= -1f;
+            }
+        }
 
         polygon.setPosition(getX(),getY());
         polygon.setRotation(getRotation());
