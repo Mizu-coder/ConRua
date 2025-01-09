@@ -134,7 +134,7 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.draw(background, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        game.font.draw(game.batch, layout,156,462);
+        game.font.draw(game.batch, layout,34,443);
         game.batch.end();
 
         if(Gdx.input.isTouched()){
