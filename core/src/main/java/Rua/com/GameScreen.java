@@ -23,10 +23,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameScreen implements Screen {
-    Texture background;
+    Nen backgruop;
     Master game;
     OrthographicCamera camera;
-    Stage stage;
 
     Turtle turtle;
     Texture t = new Texture("spritesheet.png");
@@ -70,6 +69,9 @@ public class GameScreen implements Screen {
     Reset reset1;
     boolean isReset = false;
 
+
+    int tinh;
+
     public GameScreen(Master game){
         this.game = game;
     }
@@ -83,6 +85,8 @@ public class GameScreen implements Screen {
         layout = new GlyphLayout();
         sosao = 5;
         layout.setText(game.font, "So sao con lai " + sosao + " ");
+        backgruop = new Nen(0,0,game.stage);
+
 
 
         w = new Texture("whirlpool.png");
@@ -93,6 +97,8 @@ public class GameScreen implements Screen {
 
         song = Gdx.audio.newSound(Gdx.files.internal("Ocean_Waves.ogg"));
         nhac = Gdx.audio.newMusic(Gdx.files.internal("Master_of_the_Feast.ogg"));
+
+        tinh = 0;
 
 
 
@@ -113,7 +119,6 @@ public class GameScreen implements Screen {
         starFish3 = new StarFish(star, MathUtils.random(10,600) ,MathUtils.random(10,400),game.stage);
         starFish4 = new StarFish(star, MathUtils.random(10,600) ,MathUtils.random(10,400),game.stage);
 
-        background = new Texture("water-border.jpg");
         gameover = new Texture("game-over.png");
         turtle = new Turtle(t,0,0,game.stage,game);
         shapeRenderer = new ShapeRenderer();
@@ -133,9 +138,18 @@ public class GameScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        game.batch.draw(background, 0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+
+
         game.font.draw(game.batch, layout,34,443);
         game.batch.end();
+
+        if((turtle.getX() > 420 - turtle.getWidth()/2 )&& (turtle.getX() < 1200 - 420 - turtle.getWidth()/2)){
+            game.stage.getCamera().position.x = turtle.getX() + turtle.getWidth()/2;
+        }
+        if((turtle.getY() > 240 - turtle.getHeight()/2) && (turtle.getY() <= 800 - 240 - turtle.getHeight()/2)){
+            game.stage.getCamera().position.y = turtle.getY() + turtle.getHeight()/2 ;
+        }
 
         if(Gdx.input.isTouched()){
             System.out.println("x = " + Gdx.input.getX() + " y = " + (Gdx.graphics.getHeight() - Gdx.input.getY()));
@@ -248,7 +262,7 @@ public class GameScreen implements Screen {
             if (Intersector.overlapConvexPolygons(turtle.getPolygon(), shark.getPolygon())) {
                 ScreenUtils.clear(Color.BLUE);
                 game.batch.begin();
-                game.batch.draw(background,0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
                 game.batch.draw(gameover,Gdx.graphics.getWidth()/8,Gdx.graphics.getHeight()/2,gameover.getWidth(), gameover.getHeight());
                 game.batch.end();
             }
@@ -270,10 +284,13 @@ public class GameScreen implements Screen {
                 game.setScreen(new ContinueScreen(game));
             }
         }
+
+
 //        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 //        shapeRenderer.setColor(Color.BLUE);
-//        shapeRenderer.polygon(shark.polygon.getTransformedVertices());
+//        shapeRenderer.polygon(tren.polygon.getTransformedVertices());
 //        shapeRenderer.end();
+
         game.stage.act(Gdx.graphics.getDeltaTime());
         game.stage.draw();
     }

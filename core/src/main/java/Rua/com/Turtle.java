@@ -69,7 +69,6 @@ public class Turtle extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-
         speed *= 0.9;
         moveBy(speed * MathUtils.cosDeg(getRotation()), speed * MathUtils.sinDeg(getRotation()));
 
@@ -77,6 +76,7 @@ public class Turtle extends Actor {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             rotateBy(2);
             time += delta;
+
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             rotateBy(-2);
@@ -86,6 +86,7 @@ public class Turtle extends Actor {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             speed += 0.3;
             time += delta;
+
         }
         if(getBounds().overlaps(game.rock.getBounds())){
             if(Intersector.overlapConvexPolygons(getPolygon(), game.rock.getPolygon())){
