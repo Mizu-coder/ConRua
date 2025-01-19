@@ -1,18 +1,25 @@
-# https://editorconfig.org
+# .editorconfig
+# See https://editorconfig.org for documentation.
+# This configuration ensures consistent coding styles across multiple editors and IDEs.
+
 root = true
 
+# The following rules apply to all files (unless overridden in specific sections below).
 [*]
-indent_style = space
-end_of_line = lf
 charset = utf-8
+end_of_line = lf
+indent_style = space
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+# Java / Scala / Groovy / Kotlin files: standard 4-space indentation.
 [*.{java,scala,groovy,kt,kts}]
 indent_size = 4
 
+# Gradle files often use 2-space indentation for readability.
 [*.gradle]
 indent_size = 2
 
+# Markdown files: typically don't remove trailing whitespace (it can break formatting).
 [*.md]
 trim_trailing_whitespace = false
